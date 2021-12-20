@@ -15,9 +15,6 @@ DHT sensor2(33, DHT22);
 OneWire oneWire(4); // pin D4 (6 temp (temp 3,4,5,6,7,8 sensors parralled together)
 DallasTemperature sensors(&oneWire);
 
-//Define all variables that will be used in functions below
-float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, hum1, hum2, hi_press, lo_press, comp_amps;
-
 void pressure()
 {
     // Reading Lo Pressure

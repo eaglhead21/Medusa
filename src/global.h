@@ -27,6 +27,9 @@ unsigned long debounceDelay = 50;    // the debounce time; increase if the outpu
 const int potPin1 = 33;
 const int potPin2 = 25;
 
+//Define all variables that will be used in functions below
+float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8, hum1, hum2, hi_press, lo_press, comp_amps;
+
 // Declare global variables which will be uploaded to server
 String sendtemp1, sendtemp2, sendtemp3, sendtemp4, sendtemp5, sendtemp6, sendtemp7, sendtemp8, sendhum1, sendhum2, postData;
 
