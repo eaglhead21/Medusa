@@ -5,6 +5,7 @@
 #include <HTTPClient.h>
 #include <DallasTemperature.h>
 #include <OneWire.h>
+#include <Wire.h>
 
 //Include all functional code in seperate header files
 #include <global.h>
