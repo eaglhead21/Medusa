@@ -36,14 +36,14 @@ void firstScreen()
   lcd.setCursor(0,2); // Column, line
   lcd.print("Eva:");
   lcd.setCursor(4,2);
-  lcd.print("99.9");
+  lcd.print(temp3);
   lcd.setCursor(8,2);
   lcd.print("C");
 
   lcd.setCursor(10,2);
   lcd.print("Con:");
   lcd.setCursor(14,2);
-  lcd.print("99.9");
+  lcd.print(temp4);
   lcd.setCursor(18,2);
   lcd.print("C");
 
@@ -68,28 +68,28 @@ void secondScreen()
   lcd.setCursor(0,0); // Column, line
   lcd.print("Evap In :");
   lcd.setCursor(10,0);
-  lcd.print("99.9");
+  lcd.print(temp5);
   lcd.setCursor(14,0);
   lcd.print("C");
 
   lcd.setCursor(0,1); // Column, line
   lcd.print("Evap Out:");
   lcd.setCursor(10,1);
-  lcd.print("99.9");
+  lcd.print(temp6);
   lcd.setCursor(14,1);
   lcd.print("C");
 
   lcd.setCursor(0,2); // Column, line
   lcd.print("Cond In :");
   lcd.setCursor(10,2);
-  lcd.print("99.9");
+  lcd.print(temp7);
   lcd.setCursor(14,2);
   lcd.print("C");
 
   lcd.setCursor(0,3);
   lcd.print("Cond Out:");
   lcd.setCursor(10,3);
-  lcd.print("99.9");
+  lcd.print(temp8);
   lcd.setCursor(14,3);
   lcd.print("C");
 }
@@ -132,7 +132,7 @@ void thirdScreen()
   lcd.setCursor(0,0); // Column, line
   lcd.print("Comp Current:");
   lcd.setCursor(14,0);
-  lcd.print("9.9");
+  lcd.print(currentSensorPin);
   lcd.setCursor(18,0);
   lcd.print("A");
 
