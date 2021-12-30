@@ -8,14 +8,14 @@ void firstScreen()
   lcd.setCursor(0,0); // Column, line
   lcd.print("Box:");
   lcd.setCursor(4,0);
-  lcd.print("99.9");
+  lcd.print(temp1);
   lcd.setCursor(8,0);
   lcd.print("C");
 
   lcd.setCursor(10,0);
   lcd.print("Amb:");
   lcd.setCursor(14,0);
-  lcd.print("99.9");
+  lcd.print(temp2);
   lcd.setCursor(18,0);
   lcd.print("C");
 
@@ -162,28 +162,28 @@ void fifthScreen()
   lcd.setCursor(0,0); // Column, line
   lcd.print("Box Temp:");
   lcd.setCursor(14,0);
-  lcd.print("99.9");
+  lcd.print(temp1);
   lcd.setCursor(18,0);
   lcd.print("C");
 
   lcd.setCursor(0,1); // Column, line
   lcd.print("Box Humidity:");
   lcd.setCursor(14,1);
-  lcd.print("99.9");
+  lcd.print(hum1);
   lcd.setCursor(18,1);
   lcd.print("%");
 
   lcd.setCursor(0,2); // Column, line
   lcd.print("Amb Temp:");
   lcd.setCursor(14,2);
-  lcd.print("99.9");
+  lcd.print(temp2);
   lcd.setCursor(18,2);
   lcd.print("C");
 
   lcd.setCursor(0,3); // Column, line
   lcd.print("Amb Humidity:");
   lcd.setCursor(14,3);
-  lcd.print("99.9");
+  lcd.print(hum2);
   lcd.setCursor(18,3);
   lcd.print("%");
 }
