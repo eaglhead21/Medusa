@@ -50,14 +50,14 @@ void firstScreen()
   lcd.setCursor(0,3); // Column, line
   lcd.print("Lo:");
   lcd.setCursor(4,3);
-  lcd.print(potValue1/70);
+  lcd.print(loPressureValue/70);
   lcd.setCursor(8,3);
   lcd.print("G");
 
   lcd.setCursor(10,3);
   lcd.print("Hi:");
   lcd.setCursor(14,3);
-  lcd.print(potValue2/17.65);
+  lcd.print(hiPressureValue/17.65);
   lcd.setCursor(18,3);
   lcd.print("G");
 }
@@ -230,9 +230,9 @@ void medusaLCD()
       break;
   }
 
-  if (WhichScreen > 5)
+  if (WhichScreen == 5)
   {
-    WhichScreen = 1;
+    WhichScreen = 0;
   }
 }
 

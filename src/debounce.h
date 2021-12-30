@@ -4,7 +4,7 @@
 void debounceCheckState() 
 { 
 //BEGIN of the switch debouncing code
-    int reading = digitalRead(buttonPin);
+    int reading = digitalRead(buttonDownPin);
     if (reading != lastButtonState) 
     {
         //Reset the debouncing timer
@@ -29,10 +29,10 @@ void debounceCheckState()
       hasChanged = false;
     }
     
-    #ifdef DEBUG
-        Serial.print("Button State is: ");
-        Serial.print(buttonState);
-    #endif
+    //#ifdef DEBUG
+    //    Serial.print("Button State is: ");
+    //    Serial.print(buttonState);
+    //#endif
   }
 lastButtonState = reading;
 // END of the switch Debouncing code

@@ -6,8 +6,17 @@
 #include <global.h>
 
 //Pressure Sensor Variable Defintions
-int potValue1;
-int potValue2;
+float loPressureValue;
+float hiPressureValue;
+
+//Temperature Sensor Variable Definitions
+float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8;
+
+//Humidity Sensor Variable Definitions
+float hum1, hum2;
+
+//Current Sensor Variable Definitions
+float comp_amps;
 
 //DHT22 : address ,  (temp1, temp2, hum1, hum2)
 DHT sensor1(32, DHT22);
@@ -18,9 +27,9 @@ DallasTemperature sensors(&oneWire);
 void pressure()
 {
     // Reading Lo Pressure
-    potValue1 = analogRead(potPin1);
+    loPressureValue = analogRead(loPressurePin);
     // Reading Hi Pressure
-    potValue2 = analogRead(potPin2);
+    hiPressureValue = analogRead(hiPressurePin);
 }
 
 void DHT_Temp()
@@ -46,4 +55,9 @@ void DS_Temp()
     temp6 = sensors.getTempCByIndex(3); 
     temp7 = sensors.getTempCByIndex(4); 
     temp8 = sensors.getTempCByIndex(5);
+}
+
+void Current_Sensor()
+{
+    comp_amps = analogRead(currentSensorPin);
 }
