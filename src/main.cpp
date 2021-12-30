@@ -16,7 +16,7 @@
 #include <httpSend.h>
 
 void setup() {
-  pinMode(buttonPin, INPUT);
+  pinMode(buttonDownPin, INPUT);
 
   // initialize LCD
   lcd.init();
@@ -64,20 +64,20 @@ if (hasChanged == true)
   medusaLCD();
 }
 
-pressure(); //Read Pressure Sensor Values
-DHT_Temp(); //Read Temp1 and Temp2 Values
-DHT_Humidity(); // Read Humidity1 and Humidity2 Values
-DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
-httpClient(); //Send all Data to Database
-
-
-#ifdef DEBUG
-{
-  debug();
-}
-#endif
-
-delay(30);
-
+if(millis() - previousMillis > interval) 
+  {
+    // save the last time we updated the data 
+    previousMillis = millis();
+    pressure(); //Read Pressure Sensor Values
+    DHT_Temp(); //Read Temp1 and Temp2 Values
+    DHT_Humidity(); // Read Humidity1 and Humidity2 Values
+    DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
+    httpClient(); //Send all Data to Database
+    #ifdef DEBUG
+    {
+      debug();
+    }
+    #endif
+  }
 }
    

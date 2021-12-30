@@ -6,10 +6,10 @@ void debug()
 {
   //Pressure Sensor Values
   Serial.print("Pressure-PotValue1 = ");
-  Serial.print(potValue1);
+  Serial.print(loPressureValue);
   Serial.print("\n");
   Serial.print("Pressure-PotValue2 = ");
-  Serial.print(potValue2);
+  Serial.print(hiPressureValue);
   Serial.print("\n");
   //DHT Temp 1 and Temp 2 Values
   Serial.print("Temp 1 = ");
