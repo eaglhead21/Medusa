@@ -49,6 +49,9 @@ void DHT_Humidity()
 void DS_Temp()
 {
     // Read DS18B20 values
+
+    sensors.requestTemperatures();
+    
     temp3 = sensors.getTempCByIndex(0);
     temp4 = sensors.getTempCByIndex(1);  
     temp5 = sensors.getTempCByIndex(2); 
