@@ -28,7 +28,7 @@ void setup() {
   lcd.setCursor(8,2);
   lcd.print("2.0");
   lcd.setCursor(3,3);
-  lcd.print("By Craftchill");
+  //lcd.print("By Craftchill");
 
 //Look at the setup for these temp sensors and determine how it names each or addresses each
   sensors.begin(); //Ds18b20 initialise
