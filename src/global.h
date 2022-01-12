@@ -8,6 +8,7 @@
 #define WIFI_SSID "Redpoint"     // WIFI SSID here                                   
 #define WIFI_PASSWORD "ilovefreebeer"  // WIFI password here
 //#define DEBUG;
+#define SENSOR ;  
 
 WiFiClient client;
 
@@ -46,6 +47,9 @@ unsigned long prevTime1 = millis();
 // will quickly become a bigger number than can be stored in an int.
 long previousMillis = 0;        // will store last period time was updated
 long interval = 10000;           // interval at which to blink (milliseconds)
+
+long timeStart = millis();
+long timeInterval = 0; 
 
 
 

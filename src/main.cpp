@@ -14,6 +14,7 @@
 #include <medusaLCD.h>
 #include <debug.h>
 #include <httpSend.h>
+#include <timer.h>
 
 void setup() {
   pinMode(buttonDownPin, INPUT);
