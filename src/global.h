@@ -8,7 +8,7 @@
 #define WIFI_SSID "Redpoint"     // WIFI SSID here                                   
 #define WIFI_PASSWORD "ilovefreebeer"  // WIFI password here
 //#define DEBUG;
-#define SENSOR ;  
+//#define SENSOR ;  
 
 WiFiClient client;
 

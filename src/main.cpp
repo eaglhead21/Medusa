@@ -7,6 +7,9 @@
 #include <OneWire.h>
 #include <Wire.h>
 
+//OTA Function
+#include <AsyncElegantOTA.h>;
+
 //Include all functional code in seperate header files
 #include <global.h>
 #include <sensors.h>
@@ -15,6 +18,8 @@
 #include <debug.h>
 #include <httpSend.h>
 #include <timer.h>
+
+AsyncWebServer server(80);
 
 void setup() {
   pinMode(buttonDownPin, INPUT);
@@ -54,6 +59,15 @@ void setup() {
  Serial.print("IP Address is : ");
  Serial.println(WiFi.localIP());    //print local IP address
 
+ server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) 
+  {
+    request->send(200, "text/plain", "Hi! I am ESP32 Uploaded via OTA.");
+  });
+
+  AsyncElegantOTA.begin(&server);    // Start ElegantOTA
+  server.begin();
+  Serial.println("HTTP server started");
+
  delay(30);
  }
 
@@ -70,11 +84,29 @@ if(millis() - previousMillis > interval)
     // save the last time we updated the data 
     previousMillis = millis();
     pressure(); //Read Pressure Sensor Values
-    DHT_Temp(); //Read Temp1 and Temp2 Values
-    DHT_Humidity(); // Read Humidity1 and Humidity2 Values
-    DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
-    Current_Sensor(); // Read the current sensor values
-    httpClient(); //Send all Data to Database
+    //DHT_Temp(); //Read Temp1 and Temp2 Values
+    //DHT_Humidity(); // Read Humidity1 and Humidity2 Values
+    //DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
+    //Current_Sensor(); // Read the current sensor values
+    
+    #ifdef SENSOR
+    {
+      timerStart();
+    }
+    #endif
+
+    //httpClient(); //Send all Data to Database
+    
+    #ifdef SENSOR
+    {
+        timeStop();
+        Serial.print("Time inside http Client Loop = ");
+        Serial.print(timeInterval);
+        Serial.print("\n");
+    }
+    #endif
+
+
     #ifdef DEBUG
     {
       debug();

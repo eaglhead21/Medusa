@@ -43,6 +43,7 @@ void pressure()
         timeStop();
         Serial.print("Time inside pressure loop = ");
         Serial.print(timeInterval);
+        Serial.print("\n");
     }
     #endif
 }
@@ -64,6 +65,7 @@ void DHT_Temp()
         timeStop();
         Serial.print("Time inside DHT Temp loop = ");
         Serial.print(timeInterval);
+        Serial.print("\n");
     }
     #endif
 }
@@ -85,6 +87,7 @@ void DHT_Humidity()
         timeStop();
         Serial.print("Time inside DHT Humidity loop = ");
         Serial.print(timeInterval);
+        Serial.print("\n");
     }
     #endif
 }
@@ -111,6 +114,7 @@ void DS_Temp()
         timeStop();
         Serial.print("Time inside Dallas Temp loop = ");
         Serial.print(timeInterval);
+        Serial.print("\n");
     }
     #endif
 }
@@ -130,6 +134,7 @@ void Current_Sensor()
         timeStop();
         Serial.print("Time inside Current Sense loop = ");
         Serial.print(timeInterval);
+        Serial.print("\n");
     }
     #endif
 }
