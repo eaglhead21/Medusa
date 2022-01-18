@@ -1,6 +1,8 @@
 #pragma once
 #include <global.h>
 #include <sensors.h>
+#include <WiFi.h>
+#include <HTTPClient.h>
 
 void firstScreen()
 {
@@ -22,14 +24,14 @@ void firstScreen()
   lcd.setCursor(0,1); // Column, line
   lcd.print("Sup:");
   lcd.setCursor(4,1);
-  lcd.print("99.9");
+  lcd.print(superheatTemp);
   lcd.setCursor(8,1);
   lcd.print("C");
 
   lcd.setCursor(10,1);
   lcd.print("Sub:");
   lcd.setCursor(14,1);
-  lcd.print("99.9");
+  lcd.print(subcoolingTemp);
   lcd.setCursor(18,1);
   lcd.print("C");
 
@@ -187,6 +189,31 @@ void fifthScreen()
   lcd.setCursor(18,3);
   lcd.print("%");
 }
+
+void sixthScreen()
+{
+  if (WiFi.status() == WL_CONNECTED) 
+  {
+    lcd.clear();
+    lcd.setCursor(0,0); // Column, line
+    lcd.print("IP Address: ");
+
+    lcd.setCursor(0,1); // Column, line
+    lcd.print(WiFi.localIP());
+
+    lcd.setCursor(0,2); // Column, line
+    lcd.print("SSID: ");
+
+    lcd.setCursor(0,3); // Column, line
+    lcd.print(WIFI_SSID);
+  }
+  else
+  {
+    lcd.clear();
+    lcd.setCursor(0,0); // Column, line
+    lcd.print("Internet Not Connected");
+  }
+}
    
 
 void medusaLCD()
@@ -222,6 +249,12 @@ void medusaLCD()
         fifthScreen();
       }
       break;
+
+    case 6:
+      {
+        sixthScreen();
+      }
+      break;
     
     case 0:
       {
@@ -230,7 +263,7 @@ void medusaLCD()
       break;
   }
 
-  if (WhichScreen == 5)
+  if (WhichScreen == 6)
   {
     WhichScreen = 0;
   }

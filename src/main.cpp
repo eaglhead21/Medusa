@@ -8,7 +8,7 @@
 #include <Wire.h>
 
 //OTA Function
-#include <AsyncElegantOTA.h>;
+#include <AsyncElegantOTA.h>
 
 //Include all functional code in seperate header files
 #include <global.h>
@@ -18,6 +18,9 @@
 #include <debug.h>
 #include <httpSend.h>
 #include <timer.h>
+#include <loPressureLUT.h>
+#include <hiPressureLUT.h>
+#include <superSub.h>
 
 AsyncWebServer server(80);
 
@@ -34,7 +37,7 @@ void setup() {
   lcd.setCursor(8,2);
   lcd.print("2.0");
   lcd.setCursor(3,3);
-  //lcd.print("By Craftchill");
+  lcd.print("By Craftchill");
 
 //Look at the setup for these temp sensors and determine how it names each or addresses each
   sensors.begin(); //Ds18b20 initialise
@@ -84,10 +87,13 @@ if(millis() - previousMillis > interval)
     // save the last time we updated the data 
     previousMillis = millis();
     pressure(); //Read Pressure Sensor Values
-    //DHT_Temp(); //Read Temp1 and Temp2 Values
-    //DHT_Humidity(); // Read Humidity1 and Humidity2 Values
-    //DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
-    //Current_Sensor(); // Read the current sensor values
+    loPressureLUT(); // LUT to map low pressure values to Temperature in Celsius
+    hiPressureLUT(); // LUT to map hi pressure values to Temperature in Celsius
+    superSubCalc(); // Calculate the Superheat and Subcooling values and check if in range
+    DHT_Temp(); //Read Temp1 and Temp2 Values
+    DHT_Humidity(); // Read Humidity1 and Humidity2 Values
+    DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
+    Current_Sensor(); // Read the current sensor values
     
     #ifdef SENSOR
     {

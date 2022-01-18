@@ -7,8 +7,8 @@
 #include <timer.h>
 
 //Pressure Sensor Variable Defintions
-float loPressureValue;
-float hiPressureValue;
+double loPressureValue;
+double hiPressureValue;
 
 //Temperature Sensor Variable Definitions
 float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8;

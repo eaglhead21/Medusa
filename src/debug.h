@@ -44,4 +44,7 @@ void debug()
   Serial.print("Temp8 = ");
   Serial.print(temp8);
   Serial.print("\n");
+  Serial.print("SuperHeat = ");
+  Serial.print(superheatTemp);
+  Serial.print("\n");
 }
