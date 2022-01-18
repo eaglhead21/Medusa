@@ -5,18 +5,13 @@
 
 void hiPressureLUT()
 {
-    if (hiPressureValue = 0)
-    {
-        hiPressureTempLUT = TEMP[12];
-    }
-
-    if (hiPressureValue < 0) //Use this interpolation method if PSIG is negative
+    if ((hiPressurePSI > 100) & (hiPressurePSI <= 180)) //Use this interpolation method if PSIG is between 0 and 70
     {
         for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
         {
-            if (hiPressureValue >= PSIG[i])
+            if (hiPressurePSI >= PSIG[i])
             {
-                if ((hiPressureValue - PSIG[i]) <= 1)
+                if ((hiPressurePSI - PSIG[i]) <= 2.5)
                 {
                     hiPressureTempLUT = TEMP[i];
                 }
@@ -24,31 +19,11 @@ void hiPressureLUT()
         }
     }
 
-    if ((hiPressureValue > 0) & (hiPressureValue < 70)) //Use this interpolation method if PSIG is between 0 and 70
-    {
-        for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
-        {
-            if (hiPressureValue >= PSIG[i])
-            {
-                if ((hiPressureValue - PSIG[i]) <= 1)
-                {
-                    hiPressureTempLUT = TEMP[i];
-                }
-            }
-        }
-    }
-
-    if (hiPressureValue > 70) //Use this interpolation method if PSIG is greater than 70
-    {
-        for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
-        {
-            if (hiPressureValue >= PSIG[i])
-            {
-                if ((hiPressureValue - PSIG[i]) <= 2.5)
-                {
-                    hiPressureTempLUT = TEMP[i];
-                }
-            }
-        }
-    } 
+Serial.println("\n");
+Serial.print("HiP_PSI: ");
+Serial.print(hiPressurePSI);
+Serial.println("\n");
+Serial.print("hi_LUT Value: ");
+Serial.print(hiPressureTempLUT);
+Serial.println("\n");
 }

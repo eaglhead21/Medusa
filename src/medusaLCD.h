@@ -3,6 +3,7 @@
 #include <sensors.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <superSub.h>
 
 void firstScreen()
 {
@@ -51,15 +52,15 @@ void firstScreen()
 
   lcd.setCursor(0,3); // Column, line
   lcd.print("Lo:");
-  lcd.setCursor(4,3);
-  lcd.print(loPressureValue/70);
-  lcd.setCursor(8,3);
+  lcd.setCursor(3,3);
+  lcd.print(loPressurePSI);
+  lcd.setCursor(7,3);
   lcd.print("G");
 
   lcd.setCursor(10,3);
   lcd.print("Hi:");
-  lcd.setCursor(14,3);
-  lcd.print(hiPressureValue/17.65);
+  lcd.setCursor(13,3);
+  lcd.print(hiPressurePSI);
   lcd.setCursor(18,3);
   lcd.print("G");
 }
@@ -212,6 +213,8 @@ void sixthScreen()
     lcd.clear();
     lcd.setCursor(0,0); // Column, line
     lcd.print("Internet Not Connected");
+    lcd.setCursor(0,1); // Column, line
+    lcd.print("Connected");
   }
 }
    

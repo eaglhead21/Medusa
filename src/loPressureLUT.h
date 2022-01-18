@@ -5,18 +5,13 @@
 
 void loPressureLUT()
 {
-    if (loPressureValue = 0)
-    {
-        loPressureTempLUT = TEMP[12];
-    }
-
-    if (loPressureValue < 0) //Use this interpolation method if PSIG is negative
+    if ((loPressurePSI > 4) & (loPressurePSI <= 70)) //Use this interpolation method if PSIG is between 0 and 70
     {
         for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
         {
-            if (loPressureValue >= PSIG[i])
+            if (loPressurePSI >= PSIG[i])
             {
-                if ((loPressureValue - PSIG[i]) <= 1)
+                if ((loPressurePSI - PSIG[i]) <= 1)
                 {
                     loPressureTempLUT = TEMP[i];
                 }
@@ -24,13 +19,13 @@ void loPressureLUT()
         }
     }
 
-    if ((loPressureValue > 0) & (loPressureValue < 70)) //Use this interpolation method if PSIG is between 0 and 70
+    if (loPressurePSI > 70 & (loPressurePSI <= 180)) //Use this interpolation method if PSIG is greater than 70
     {
         for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
         {
-            if (loPressureValue >= PSIG[i])
+            if (loPressurePSI >= PSIG[i])
             {
-                if ((loPressureValue - PSIG[i]) <= 1)
+                if ((loPressurePSI - PSIG[i]) <= 2.5)
                 {
                     loPressureTempLUT = TEMP[i];
                 }
@@ -38,17 +33,11 @@ void loPressureLUT()
         }
     }
 
-    if (loPressureValue > 70) //Use this interpolation method if PSIG is greater than 70
-    {
-        for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
-        {
-            if (loPressureValue >= PSIG[i])
-            {
-                if ((loPressureValue - PSIG[i]) <= 2.5)
-                {
-                    loPressureTempLUT = TEMP[i];
-                }
-            }
-        }
-    }
+Serial.print("LoP_PSI: ");
+Serial.print(loPressurePSI);
+Serial.println("\n");
+Serial.print("lo_LUT Value: ");
+Serial.print(loPressureTempLUT);
+Serial.println("\n");
+
 }

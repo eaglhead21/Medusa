@@ -7,7 +7,7 @@
 
 void superSubCalc()
 {
-    superheatTemp = temp1 - loPressureTempLUT;
-    subcoolingTemp = hiPressureTempLUT - temp2;
+    superheatTemp = temp3 - loPressureTempLUT;
+    subcoolingTemp = hiPressureTempLUT - temp4;
 }
     
