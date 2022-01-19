@@ -9,7 +9,7 @@ void httpClient()
 unsigned long currentTime1 = millis();
 if (currentTime1 - prevTime1 > 10000) 
 {
-  HTTPClient http;    // http object of clas HTTPClient
+  HTTPClient http;    // http object of class HTTPClient
   
   // Convert integer variables to string
   sendtemp1 = String(temp1);  
@@ -22,9 +22,16 @@ if (currentTime1 - prevTime1 > 10000)
   sendtemp6 = String(temp6); 
   sendtemp7 = String(temp7); 
   sendtemp8 = String(temp8); 
+  sendLoPress = String(loPressurePSI);
+  sendHiPress = String(hiPressurePSI);
+  sendSupHeat = String(superheatTemp);
+  sendSubCool = String(subcoolingTemp);
+
 
   //compile all 
-  postData = "sendtemp1=" + sendtemp1 + "&sendtemp2=" + sendtemp2 + "&sendtemp3=" + sendtemp3 + "&sendtemp4=" + sendtemp4 + "&sendtemp5=" + sendtemp5 + "&sendtemp6=" + sendtemp6 + "&sendtemp7=" + sendtemp7 + "&sendtemp8=" + sendtemp8 + "&sendhum1=" + sendhum1 + "&sendhum2=" + sendhum2;
+  postData = "sendtemp1=" + sendtemp1 + "&sendtemp2=" + sendtemp2 + "&sendtemp3=" + sendtemp3 + "&sendtemp4=" + sendtemp4 + "&sendtemp5=" + 
+    sendtemp5 + "&sendtemp6=" + sendtemp6 + "&sendtemp7=" + sendtemp7 + "&sendtemp8=" + sendtemp8 + "&sendhum1=" + sendhum1 + "&sendhum2=" + 
+    sendhum2 + "&sendLoPress=" + sendLoPress + "&sendHiPress=" + sendHiPress + "&sendSupHeat=" + sendSupHeat + "&sendSubCool=" + sendSubCool;
 
   http.begin(client, "http://gingerwallop.com/dbwrite.php");             // Connect to host where MySQL databse is hosted
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");  //Specify content-type header

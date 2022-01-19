@@ -94,6 +94,8 @@ if(millis() - previousMillis > interval)
     DHT_Humidity(); // Read Humidity1 and Humidity2 Values
     DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
     Current_Sensor(); // Read the current sensor values
+    medusaLCD(); // Refresh the screen with new data
+    httpClient(); //Send all Data to Database
     
     #ifdef SENSOR
     {
@@ -101,8 +103,6 @@ if(millis() - previousMillis > interval)
     }
     #endif
 
-    //httpClient(); //Send all Data to Database
-    
     #ifdef SENSOR
     {
         timeStop();
@@ -111,7 +111,6 @@ if(millis() - previousMillis > interval)
         Serial.print("\n");
     }
     #endif
-
 
     #ifdef DEBUG
     {

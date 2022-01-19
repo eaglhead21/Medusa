@@ -32,12 +32,4 @@ void loPressureLUT()
             }
         }
     }
-
-Serial.print("LoP_PSI: ");
-Serial.print(loPressurePSI);
-Serial.println("\n");
-Serial.print("lo_LUT Value: ");
-Serial.print(loPressureTempLUT);
-Serial.println("\n");
-
 }

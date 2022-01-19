@@ -18,7 +18,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 //Page Scrolling
 int WhichScreen =0;   // This variable stores the current Screen number
 bool hasChanged = true;
-const int buttonDownPin = 23;    // the number of the pushbutton pin
+const int buttonDownPin = 16;    // the number of the pushbutton pin
 //const int buttonUpPin = 17;     // push button menu up pin
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
@@ -30,8 +30,8 @@ const int loPressurePin = 36;
 const int hiPressurePin = 39;
 
 //Pressure Sensor Variable Defintions
-double loPressureValue;
-double hiPressureValue;
+float loPressureValue;
+float hiPressureValue;
 
 //Current Sensor
 const int currentSensorPin = 34;
@@ -40,7 +40,8 @@ const int currentSensorPin = 34;
 const int remoteRelayPin = 13;
 
 // Declare global variables which will be uploaded to server
-String sendtemp1, sendtemp2, sendtemp3, sendtemp4, sendtemp5, sendtemp6, sendtemp7, sendtemp8, sendhum1, sendhum2, postData;
+String sendtemp1, sendtemp2, sendtemp3, sendtemp4, sendtemp5, sendtemp6, sendtemp7, sendtemp8, sendhum1, sendhum2, sendLoPress, 
+    sendHiPress, sendSupHeat, sendSubCool, postData;
 
 //Declare other global variables used
 //Debounce
@@ -67,10 +68,10 @@ const double TEMP [ ] = {-19.46,-18.3,-17.19,-16.11,-15.07,-14.07,-13.1,-12.15,-
     11.25,11.73,12.21,12.67,13.13,13.6,14.05,14.5,14.93,15.37,15.81,16.23,16.66,17.08,17.5,17.91,18.32,18.72,19.12,19.52,19.91,20.3,20.68,
     22.56,24.36,26.1,27.76,29.37,30.36,32.42,33.88,35.29,36.66,38,39.27,40.55,41.77,43,44.16,45.33,46.44,47.55,48.66,49.72,50.72};
 
-double loPressureTempLUT;
-double hiPressureTempLUT;
-double superheatTemp;
-double subcoolingTemp;
+float loPressureTempLUT;
+float hiPressureTempLUT;
+float superheatTemp;
+float subcoolingTemp;
 
 
 

@@ -18,12 +18,4 @@ void hiPressureLUT()
             }
         }
     }
-
-Serial.println("\n");
-Serial.print("HiP_PSI: ");
-Serial.print(hiPressurePSI);
-Serial.println("\n");
-Serial.print("hi_LUT Value: ");
-Serial.print(hiPressureTempLUT);
-Serial.println("\n");
 }

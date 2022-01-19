@@ -37,14 +37,14 @@ void firstScreen()
   lcd.print("C");
 
   lcd.setCursor(0,2); // Column, line
-  lcd.print("Eva:");
+  lcd.print("EvaO:");
   lcd.setCursor(4,2);
-  lcd.print(temp3);
+  lcd.print(temp6);
   lcd.setCursor(8,2);
   lcd.print("C");
 
   lcd.setCursor(10,2);
-  lcd.print("Con:");
+  lcd.print("ConO:");
   lcd.setCursor(14,2);
   lcd.print(temp4);
   lcd.setCursor(18,2);
@@ -85,46 +85,55 @@ void secondScreen()
   lcd.setCursor(0,2); // Column, line
   lcd.print("Cond In :");
   lcd.setCursor(10,2);
-  lcd.print(temp7);
+  lcd.print(temp3);
   lcd.setCursor(14,2);
   lcd.print("C");
 
   lcd.setCursor(0,3);
   lcd.print("Cond Out:");
   lcd.setCursor(10,3);
-  lcd.print(temp8);
+  lcd.print(temp4);
   lcd.setCursor(14,3);
   lcd.print("C");
 }
   
 void thirdScreen()
 {
+  double compDeltaT;
+  double condDeltaT;
+  double evapDeltaT;
+  double capDeltaT;
+
   lcd.clear();
   lcd.setCursor(0,0); // Column, line
   lcd.print("Comp Delta T:");
   lcd.setCursor(14,0);
-  lcd.print("99.9");
+  compDeltaT = temp3 - temp6;
+  lcd.print(compDeltaT);
   lcd.setCursor(18,0);
   lcd.print("C");
 
   lcd.setCursor(0,1); // Column, line
   lcd.print("Cond Delta T:");
   lcd.setCursor(14,1);
-  lcd.print("99.9");
+  condDeltaT = temp3 - temp4;
+  lcd.print(condDeltaT);
   lcd.setCursor(18,1);
   lcd.print("C");
 
   lcd.setCursor(0,2); // Column, line
   lcd.print("Evap Delta T:");
   lcd.setCursor(14,2);
-  lcd.print("99.9");
+  evapDeltaT = temp5 - temp6;
+  lcd.print(evapDeltaT);
   lcd.setCursor(18,2);
   lcd.print("C");
 
   lcd.setCursor(0,3); // Column, line
   lcd.print("Cap  Delta T:");
   lcd.setCursor(14,3);
-  lcd.print("99.9");
+  capDeltaT = temp4 - temp5;
+  lcd.print(capDeltaT);
   lcd.setCursor(18,3);
   lcd.print("C");
 }
@@ -140,9 +149,9 @@ void thirdScreen()
   lcd.print("A");
 
   lcd.setCursor(0,1); // Column, line
-  lcd.print("Conp Temp:");
+  lcd.print("Comp Temp:");
   lcd.setCursor(14,1);
-  lcd.print("99.9");
+  lcd.print(temp7);
   lcd.setCursor(18,1);
   lcd.print("C");
 
@@ -154,7 +163,7 @@ void thirdScreen()
   lcd.setCursor(0,3); // Column, line
   lcd.print("Tower Temp:");
   lcd.setCursor(14,3);
-  lcd.print("99.9");
+  lcd.print(temp8);
   lcd.setCursor(18,3);
   lcd.print("C");
 }
@@ -217,6 +226,15 @@ void sixthScreen()
     lcd.print("Connected");
   }
 }
+
+void seventhScreen()
+{
+  lcd.clear();
+  lcd.setCursor(0,0); // Column, line
+  lcd.print("DEBUG:");
+  lcd.setCursor(14,0);
+  lcd.print("debug");
+}
    
 
 void medusaLCD()
@@ -259,6 +277,12 @@ void medusaLCD()
       }
       break;
     
+    case 7:
+      {
+        seventhScreen();
+      }
+      break;
+
     case 0:
       {
       
@@ -266,7 +290,7 @@ void medusaLCD()
       break;
   }
 
-  if (WhichScreen == 6)
+  if (WhichScreen == 7)
   {
     WhichScreen = 0;
   }
