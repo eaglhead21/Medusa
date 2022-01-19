@@ -74,18 +74,24 @@ void setup() {
  delay(30);
  }
 
-void loop() { 
+void loop() 
+{ 
+  debounceCheckState();
+  if (hasChanged == true)
+  {
+    medusaLCD();
+  }
 
-debounceCheckState();
-if (hasChanged == true)
-{
-  medusaLCD();
-}
+  if(millis() - previousHTTPMillis > httpInterval)
+  {
+    previousHTTPMillis = millis();
+    httpClient(); //Send all Data to Database
+  }
 
-if(millis() - previousMillis > interval) 
+  if(millis() - previousSensorMillis > sensorInterval) 
   {
     // save the last time we updated the data 
-    previousMillis = millis();
+    previousSensorMillis = millis();
     pressure(); //Read Pressure Sensor Values
     loPressureLUT(); // LUT to map low pressure values to Temperature in Celsius
     hiPressureLUT(); // LUT to map hi pressure values to Temperature in Celsius
@@ -95,8 +101,7 @@ if(millis() - previousMillis > interval)
     DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
     Current_Sensor(); // Read the current sensor values
     medusaLCD(); // Refresh the screen with new data
-    httpClient(); //Send all Data to Database
-    
+
     #ifdef SENSOR
     {
       timerStart();

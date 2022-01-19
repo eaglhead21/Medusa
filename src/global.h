@@ -19,7 +19,6 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 int WhichScreen =0;   // This variable stores the current Screen number
 bool hasChanged = true;
 const int buttonDownPin = 16;    // the number of the pushbutton pin
-//const int buttonUpPin = 17;     // push button menu up pin
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
@@ -47,11 +46,13 @@ String sendtemp1, sendtemp2, sendtemp3, sendtemp4, sendtemp5, sendtemp6, sendtem
 //Debounce
 unsigned long prevTime1 = millis();
 
-//Define timing for loops
+// Define timing for loops
 // the following variables are a long because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
-long previousMillis = 0;        // will store last period time was updated
-long interval = 10000;           // interval at which to sample the data
+long previousSensorMillis = 0;      // will store last period time for sensor updates
+long sensorInterval = 10000;        // Interval at which to sample the sensor data and display to the screen
+long previousHTTPMillis = 0;        // Will store last period time for http send updates
+long httpInterval = 100000;         // Interval at which to send sensor data to the cloud
 
 long timeStart = millis();
 long timeInterval = 0; 
@@ -72,6 +73,7 @@ float loPressureTempLUT;
 float hiPressureTempLUT;
 float superheatTemp;
 float subcoolingTemp;
+
 
 
 

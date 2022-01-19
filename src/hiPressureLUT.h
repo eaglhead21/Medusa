@@ -7,7 +7,7 @@ void hiPressureLUT()
 {
     if ((hiPressurePSI > 100) & (hiPressurePSI <= 180)) //Use this interpolation method if PSIG is between 0 and 70
     {
-        for (int i = 0; i < sizeof(PSIG); i++) // check each constant in the dataset
+        for (int i = 0; (i < sizeof(PSIG)); i++) // check each constant in the dataset
         {
             if (hiPressurePSI >= PSIG[i])
             {
