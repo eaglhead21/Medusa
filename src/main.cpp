@@ -13,7 +13,7 @@
 //Include all functional code in seperate header files
 #include <global.h>
 #include <sensors.h>
-#include <debounce.h>
+//#include <debounce.h>
 #include <medusaLCD.h>
 #include <debug.h>
 #include <httpSend.h>
@@ -31,13 +31,6 @@ void setup() {
   lcd.init();
   // turn on LCD backlight                      
   lcd.backlight();
-  // Set Startup Screen
-  lcd.setCursor(1,1);
-  lcd.print("Welcome To Medusa");
-  lcd.setCursor(8,2);
-  lcd.print("2.0");
-  lcd.setCursor(3,3);
-  lcd.print("By Craftchill");
 
 //Look at the setup for these temp sensors and determine how it names each or addresses each
   sensors.begin(); //Ds18b20 initialise
@@ -52,15 +45,31 @@ void setup() {
  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
  Serial.print("Connecting to ");
  Serial.print(WIFI_SSID);
- while (WiFi.status() != WL_CONNECTED) 
- { Serial.print(".");
- delay(500); }
+ while (WiFi.status() != WL_CONNECTED)
+ { 
+  // Set Startup Screen and WiFi Connecting Info
+  lcd.setCursor(0,1);
+  lcd.print("Craftchill's Medusa");
+  lcd.setCursor(0,2);
+  lcd.print("Connecting...");
+  Serial.print(".");
+  delay(500); 
+}
 
  Serial.println();
  Serial.print("Connected to ");
  Serial.println(WIFI_SSID);
  Serial.print("IP Address is : ");
  Serial.println(WiFi.localIP());    //print local IP address
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Craftchill's Medusa");
+  lcd.setCursor(0,1);
+  lcd.print("Connected!");
+  lcd.setCursor(0,2); // Column, line
+  lcd.print("SSID: ");
+  lcd.setCursor(7,2); // Column, line
+  lcd.print(WIFI_SSID);
 
  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) 
   {
@@ -76,10 +85,15 @@ void setup() {
 
 void loop() 
 { 
-  debounceCheckState();
-  if (hasChanged == true)
+  if (digitalRead(buttonDownPin) == true)
   {
+    hasChanged == true;
+    WhichScreen++;
     medusaLCD();
+  }
+  else 
+  {
+    hasChanged == false;
   }
 
   if(millis() - previousHTTPMillis > httpInterval)
@@ -123,5 +137,6 @@ void loop()
     }
     #endif
   }
+  
 }
    

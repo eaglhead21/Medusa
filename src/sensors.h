@@ -35,7 +35,7 @@ void pressure()
 
     // Reading Lo Pressure
     loPressureValue = analogRead(loPressurePin);
-    loPressurePSI = ((loPressureValue/70.6)+3);
+    loPressurePSI = (loPressureValue/70.6);
     // Reading Hi Pressure
     hiPressureValue = analogRead(hiPressurePin);
     hiPressurePSI = (hiPressureValue/17.7);

@@ -18,11 +18,11 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 //Page Scrolling
 int WhichScreen =0;   // This variable stores the current Screen number
 bool hasChanged = true;
-const int buttonDownPin = 16;    // the number of the pushbutton pin
+const int buttonDownPin = 17;    // the number of the pushbutton pin
 int buttonState;             // the current reading from the input pin
 int lastButtonState = LOW;   // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 20;    // the debounce time; increase if the output flickers
 
 //Pressure Sensor pin connection defintions
 const int loPressurePin = 36;
@@ -50,9 +50,9 @@ unsigned long prevTime1 = millis();
 // the following variables are a long because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
 long previousSensorMillis = 0;      // will store last period time for sensor updates
-long sensorInterval = 10000;        // Interval at which to sample the sensor data and display to the screen
+long sensorInterval = 1000;        // Interval at which to sample the sensor data and display to the screen
 long previousHTTPMillis = 0;        // Will store last period time for http send updates
-long httpInterval = 100000;         // Interval at which to send sensor data to the cloud
+long httpInterval = 6000000;         // Interval at which to send sensor data to the cloud
 
 long timeStart = millis();
 long timeInterval = 0; 

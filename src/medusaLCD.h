@@ -53,7 +53,7 @@ void firstScreen()
   lcd.setCursor(0,3); // Column, line
   lcd.print("Lo:");
   lcd.setCursor(3,3);
-  lcd.print(loPressurePSI);
+  lcd.print(loPressurePSI+3); //adding 4 as a calibration adjustment
   lcd.setCursor(7,3);
   lcd.print("G");
 
@@ -221,7 +221,7 @@ void sixthScreen()
   {
     lcd.clear();
     lcd.setCursor(0,0); // Column, line
-    lcd.print("Internet Not Connected");
+    lcd.print("Internet Not");
     lcd.setCursor(0,1); // Column, line
     lcd.print("Connected");
   }
