@@ -26,6 +26,8 @@ AsyncWebServer server(80);
 
 void setup() {
   pinMode(buttonDownPin, INPUT);
+  pinMode(remoteRelayPin, OUTPUT);
+  digitalWrite(remoteRelayPin, HIGH);
 
   // initialize LCD
   lcd.init();
@@ -96,6 +98,12 @@ void loop()
     hasChanged == false;
   }
 
+  if(millis() - previousHTTPMillis > screenInterval)
+  {
+    previousScreenMillis = millis();
+    medusaLCD(); // Refresh the screen with new data
+  }
+
   if(millis() - previousHTTPMillis > httpInterval)
   {
     previousHTTPMillis = millis();
@@ -114,8 +122,7 @@ void loop()
     DHT_Humidity(); // Read Humidity1 and Humidity2 Values
     DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
     Current_Sensor(); // Read the current sensor values
-    medusaLCD(); // Refresh the screen with new data
-
+    
     #ifdef SENSOR
     {
       timerStart();
