@@ -27,6 +27,7 @@ AsyncWebServer server(80);
 void setup() {
   pinMode(buttonDownPin, INPUT);
   pinMode(remoteRelayPin, OUTPUT);
+  pinMode(currentSensorPin, INPUT);
   digitalWrite(remoteRelayPin, HIGH);
 
   // initialize LCD

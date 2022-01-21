@@ -33,7 +33,7 @@ float loPressureValue;
 float hiPressureValue;
 
 //Current Sensor
-const int currentSensorPin = 15;
+const int currentSensorPin = 35;
 
 //On/Off Remote Relay
 const int remoteRelayPin = 13;
@@ -52,7 +52,7 @@ unsigned long prevTime1 = millis();
 long previousSensorMillis = 0;      // will store last period time for sensor updates
 long sensorInterval = 1000;        // Interval at which to sample the sensor data and display to the screen
 long previousHTTPMillis = 0;        // Will store last period time for http send updates
-long httpInterval = 600000;         // Interval at which to send sensor data to the cloud
+long httpInterval = 100000;         // Interval at which to send sensor data to the cloud
 long screenInterval = 5000;         // Interval at which screen will update
 long previousScreenMillis = 0;      // Will store last period time for screen updates
 

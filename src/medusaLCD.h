@@ -144,7 +144,7 @@ void thirdScreen()
   lcd.setCursor(0,0); // Column, line
   lcd.print("Comp Current:");
   lcd.setCursor(14,0);
-  lcd.print(currentSensorPin);
+  lcd.print(comp_amps);
   lcd.setCursor(18,0);
   lcd.print("A");
 
