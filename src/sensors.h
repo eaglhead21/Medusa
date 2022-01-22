@@ -6,9 +6,9 @@
 #include <global.h>
 #include <timer.h>
 
-//Pressure Sensor Variable Defintions
-float loPressureValue;
-float hiPressureValue;
+//Pressure Calculations
+float loPressurePSI;
+float hiPressurePSI;
 
 //Temperature Sensor Variable Definitions
 float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8;
@@ -35,8 +35,10 @@ void pressure()
 
     // Reading Lo Pressure
     loPressureValue = analogRead(loPressurePin);
+    loPressurePSI = (loPressureValue/70.6);
     // Reading Hi Pressure
     hiPressureValue = analogRead(hiPressurePin);
+    hiPressurePSI = (hiPressureValue/17.7);
     
     #ifdef SENSOR
     {

@@ -8,33 +8,32 @@
 #include <Wire.h>
 
 //OTA Function
-#include <AsyncElegantOTA.h>;
+#include <AsyncElegantOTA.h>
 
 //Include all functional code in seperate header files
 #include <global.h>
 #include <sensors.h>
-#include <debounce.h>
+//#include <debounce.h>
 #include <medusaLCD.h>
 #include <debug.h>
 #include <httpSend.h>
 #include <timer.h>
+#include <loPressureLUT.h>
+#include <hiPressureLUT.h>
+#include <superSub.h>
 
 AsyncWebServer server(80);
 
 void setup() {
   pinMode(buttonDownPin, INPUT);
+  pinMode(remoteRelayPin, OUTPUT);
+  pinMode(currentSensorPin, INPUT);
+  digitalWrite(remoteRelayPin, HIGH);
 
   // initialize LCD
   lcd.init();
   // turn on LCD backlight                      
   lcd.backlight();
-  // Set Startup Screen
-  lcd.setCursor(1,1);
-  lcd.print("Welcome To Medusa");
-  lcd.setCursor(8,2);
-  lcd.print("2.0");
-  lcd.setCursor(3,3);
-  //lcd.print("By Craftchill");
 
 //Look at the setup for these temp sensors and determine how it names each or addresses each
   sensors.begin(); //Ds18b20 initialise
@@ -49,15 +48,31 @@ void setup() {
  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
  Serial.print("Connecting to ");
  Serial.print(WIFI_SSID);
- while (WiFi.status() != WL_CONNECTED) 
- { Serial.print(".");
- delay(500); }
+ while (WiFi.status() != WL_CONNECTED)
+ { 
+  // Set Startup Screen and WiFi Connecting Info
+  lcd.setCursor(0,1);
+  lcd.print("Craftchill's Medusa");
+  lcd.setCursor(0,2);
+  lcd.print("Connecting...");
+  Serial.print(".");
+  delay(500); 
+}
 
  Serial.println();
  Serial.print("Connected to ");
  Serial.println(WIFI_SSID);
  Serial.print("IP Address is : ");
  Serial.println(WiFi.localIP());    //print local IP address
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Craftchill's Medusa");
+  lcd.setCursor(0,1);
+  lcd.print("Connected!");
+  lcd.setCursor(0,2); // Column, line
+  lcd.print("SSID: ");
+  lcd.setCursor(7,2); // Column, line
+  lcd.print(WIFI_SSID);
 
  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) 
   {
@@ -71,23 +86,43 @@ void setup() {
  delay(30);
  }
 
-void loop() { 
+void loop() 
+{ 
+  if (digitalRead(buttonDownPin) == true)
+  {
+    hasChanged == true;
+    WhichScreen++;
+    medusaLCD();
+  }
+  else 
+  {
+    hasChanged == false;
+  }
 
-debounceCheckState();
-if (hasChanged == true)
-{
-  medusaLCD();
-}
+  if(millis() - previousHTTPMillis > screenInterval)
+  {
+    previousScreenMillis = millis();
+    medusaLCD(); // Refresh the screen with new data
+  }
 
-if(millis() - previousMillis > interval) 
+  if(millis() - previousHTTPMillis > httpInterval)
+  {
+    previousHTTPMillis = millis();
+    httpClient(); //Send all Data to Database
+  }
+
+  if(millis() - previousSensorMillis > sensorInterval) 
   {
     // save the last time we updated the data 
-    previousMillis = millis();
+    previousSensorMillis = millis();
     pressure(); //Read Pressure Sensor Values
-    //DHT_Temp(); //Read Temp1 and Temp2 Values
-    //DHT_Humidity(); // Read Humidity1 and Humidity2 Values
-    //DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
-    //Current_Sensor(); // Read the current sensor values
+    loPressureLUT(); // LUT to map low pressure values to Temperature in Celsius
+    hiPressureLUT(); // LUT to map hi pressure values to Temperature in Celsius
+    superSubCalc(); // Calculate the Superheat and Subcooling values and check if in range
+    DHT_Temp(); //Read Temp1 and Temp2 Values
+    DHT_Humidity(); // Read Humidity1 and Humidity2 Values
+    DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
+    Current_Sensor(); // Read the current sensor values
     
     #ifdef SENSOR
     {
@@ -95,8 +130,6 @@ if(millis() - previousMillis > interval)
     }
     #endif
 
-    //httpClient(); //Send all Data to Database
-    
     #ifdef SENSOR
     {
         timeStop();
@@ -106,12 +139,12 @@ if(millis() - previousMillis > interval)
     }
     #endif
 
-
     #ifdef DEBUG
     {
       debug();
     }
     #endif
   }
+  
 }
    
