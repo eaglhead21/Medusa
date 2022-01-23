@@ -4,7 +4,6 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <global.h>
-#include <timer.h>
 
 //Pressure Calculations
 float loPressurePSI;
@@ -27,81 +26,30 @@ DallasTemperature sensors(&oneWire);
 
 void pressure()
 {
-    #ifdef SENSOR
-    {
-        timerStart();
-    }
-    #endif
-
     // Reading Lo Pressure
     loPressureValue = analogRead(loPressurePin);
     loPressurePSI = (loPressureValue/70.6);
     // Reading Hi Pressure
     hiPressureValue = analogRead(hiPressurePin);
     hiPressurePSI = (hiPressureValue/17.7);
-    
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside pressure loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
 }
 
 void DHT_Temp()
 {
-    #ifdef SENSOR
-    {
-        timerStart();
-    }
-    #endif
-    
     // Read DHT Temperature values
     temp1 = sensor1.readTemperature();
     temp2 = sensor2.readTemperature();
-
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside DHT Temp loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
 }
 
 void DHT_Humidity()
 {
-    #ifdef SENSOR
-    {
-        timerStart();
-    }
-    #endif
-
     // Read DHT Humidity values
     hum1 = sensor1.readHumidity();
     hum2 = sensor2.readHumidity();
-
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside DHT Humidity loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
 }
 
 void DS_Temp()
 {
-    #ifdef SENSOR
-    {
-        timerStart();
-    }
-    #endif
-    
     // Read DS18B20 values
     sensors.requestTemperatures();
     temp3 = sensors.getTempCByIndex(0);
@@ -110,33 +58,9 @@ void DS_Temp()
     temp6 = sensors.getTempCByIndex(3); 
     temp7 = sensors.getTempCByIndex(4); 
     temp8 = sensors.getTempCByIndex(5);
-
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside Dallas Temp loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
 }
 
 void Current_Sensor()
 {
-    #ifdef SENSOR
-    {
-        timerStart();
-    }
-    #endif
-
     comp_amps = analogRead(currentSensorPin);
-
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside Current Sense loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
 }

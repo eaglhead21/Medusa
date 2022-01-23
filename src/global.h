@@ -50,14 +50,15 @@ unsigned long prevTime1 = millis();
 // the following variables are a long because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
 long previousSensorMillis = 0;      // will store last period time for sensor updates
-long sensorInterval = 1000;        // Interval at which to sample the sensor data and display to the screen
 long previousHTTPMillis = 0;        // Will store last period time for http send updates
+long previousScreenMillis = 0;      // Will store last period time for screen updates
+long previousInternetMillis = 0;    // Will store last period time for internet hearbeat check
+
+//time Intervals for various functions
+long sensorInterval = 1000;        // Interval at which to sample the sensor data and display to the screen
 long httpInterval = 100000;         // Interval at which to send sensor data to the cloud
 long screenInterval = 5000;         // Interval at which screen will update
-long previousScreenMillis = 0;      // Will store last period time for screen updates
-
-long timeStart = millis();
-long timeInterval = 0; 
+long internetCheckInterval = 50000; // Interval to check if internet is still alive
 
 //Used for LUT variable
 //Array Declaration (PSIG)
