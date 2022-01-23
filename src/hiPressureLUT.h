@@ -18,4 +18,10 @@ void hiPressureLUT()
             }
         }
     }
+
+    else
+    { 
+        hiPressureTempLUT = NULL; 
+    }
+
 }
