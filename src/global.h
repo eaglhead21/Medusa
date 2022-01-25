@@ -34,6 +34,7 @@ float hiPressureValue;
 
 //Current Sensor
 const int currentSensorPin = 35;
+String isRunning;
 
 //On/Off Remote Relay
 const int remoteRelayPin = 13;
