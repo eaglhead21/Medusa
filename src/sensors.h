@@ -16,7 +16,7 @@ float temp1, temp2, temp3, temp4, temp5, temp6, temp7, temp8;
 float hum1, hum2;
 
 //Current Sensor Variable Definitions
-float comp_amps;
+bool isCompRunning;
 
 //DHT22 : address ,  (temp1, temp2, hum1, hum2)
 DHT sensor1(32, DHT22);
@@ -62,5 +62,16 @@ void DS_Temp()
 
 void Current_Sensor()
 {
-    comp_amps = analogRead(currentSensorPin);
+    isCompRunning = digitalRead(currentSensorPin);
+    if (isCompRunning == HIGH)
+    {
+        isRunning = "No";
+    }
+    else
+    {
+        isRunning = "Yes";
+    }
+
+    Serial.println(currentSensorPin);
+
 }
