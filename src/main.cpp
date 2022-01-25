@@ -8,6 +8,7 @@
 #include <OneWire.h>
 #include <Wire.h>
 #include <AsyncElegantOTA.h>
+#include <Arduino_JSON.h>
 
 //Include all internally created functional code in seperate header files
 #include <global.h>
@@ -19,6 +20,7 @@
 #include <hiPressureLUT.h>
 #include <superSub.h>
 #include <internet.h>
+#include <remote_control.h>
 //#include <debounce.h>
 
 AsyncWebServer server(80);
@@ -27,7 +29,7 @@ void setup() {
   pinMode(buttonDownPin, INPUT);
   pinMode(remoteRelayPin, OUTPUT);
   pinMode(currentSensorPin, INPUT);
-  digitalWrite(remoteRelayPin, HIGH);
+  //digitalWrite(remoteRelayPin, HIGH);
 
   // initialize LCD
   lcd.init();
@@ -122,6 +124,7 @@ void loop()
     DHT_Humidity(); // Read Humidity1 and Humidity2 Values
     DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
     Current_Sensor(); // Read the current sensor values
+    remoteControl(); // Check for remote bit toggle
     
     #ifdef DEBUG
     {
