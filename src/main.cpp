@@ -1,3 +1,4 @@
+// Outside Library Includes
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h> 
 #include <DHT.h> 
@@ -6,21 +7,21 @@
 #include <DallasTemperature.h>
 #include <OneWire.h>
 #include <Wire.h>
-
-//OTA Function
 #include <AsyncElegantOTA.h>
+#include <Arduino_JSON.h>
 
-//Include all functional code in seperate header files
+//Include all internally created functional code in seperate header files
 #include <global.h>
 #include <sensors.h>
-//#include <debounce.h>
 #include <medusaLCD.h>
 #include <debug.h>
 #include <httpSend.h>
-#include <timer.h>
 #include <loPressureLUT.h>
 #include <hiPressureLUT.h>
 #include <superSub.h>
+#include <internet.h>
+#include <remote_control.h>
+//#include <debounce.h>
 
 AsyncWebServer server(80);
 
@@ -28,7 +29,6 @@ void setup() {
   pinMode(buttonDownPin, INPUT);
   pinMode(remoteRelayPin, OUTPUT);
   pinMode(currentSensorPin, INPUT);
-  digitalWrite(remoteRelayPin, HIGH);
 
   // initialize LCD
   lcd.init();
@@ -123,28 +123,14 @@ void loop()
     DHT_Humidity(); // Read Humidity1 and Humidity2 Values
     DS_Temp(); // Read DS18B20 Temp3,4,5,6,7,8 Values
     Current_Sensor(); // Read the current sensor values
+    remoteControl(); // Check for remote bit toggle
     
-    #ifdef SENSOR
-    {
-      timerStart();
-    }
-    #endif
-
-    #ifdef SENSOR
-    {
-        timeStop();
-        Serial.print("Time inside http Client Loop = ");
-        Serial.print(timeInterval);
-        Serial.print("\n");
-    }
-    #endif
-
     #ifdef DEBUG
     {
       debug();
     }
     #endif
   }
-  
+  wifiCheck();
 }
    

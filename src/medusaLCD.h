@@ -142,11 +142,9 @@ void thirdScreen()
 {
   lcd.clear();
   lcd.setCursor(0,0); // Column, line
-  lcd.print("Comp Current:");
+  lcd.print("RESERVED:");
   lcd.setCursor(14,0);
-  lcd.print(comp_amps);
-  lcd.setCursor(18,0);
-  lcd.print("A");
+  lcd.print("RES");
 
   lcd.setCursor(0,1); // Column, line
   lcd.print("Comp Temp:");
@@ -158,7 +156,7 @@ void thirdScreen()
   lcd.setCursor(0,2); // Column, line
   lcd.print("Comp Run:");
   lcd.setCursor(14,2);
-  lcd.print("Yes");
+  lcd.print(isRunning);
 
   lcd.setCursor(0,3); // Column, line
   lcd.print("Tower Temp:");
