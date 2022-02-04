@@ -9,6 +9,7 @@
 #include <Wire.h>
 #include <AsyncElegantOTA.h>
 #include <Arduino_JSON.h>
+#include <ESP_Mail_Client.h>
 
 //Include all internally created functional code in seperate header files
 #include <global.h>
@@ -21,11 +22,13 @@
 #include <superSub.h>
 #include <internet.h>
 #include <remote_control.h>
+#include <sendMail.h>
 //#include <debounce.h>
 
 AsyncWebServer server(80);
 
-void setup() {
+void setup() 
+{
   pinMode(buttonDownPin, INPUT);
   pinMode(remoteRelayPin, OUTPUT);
   pinMode(currentSensorPin, INPUT);
@@ -35,35 +38,35 @@ void setup() {
   // turn on LCD backlight                      
   lcd.backlight();
 
-//Look at the setup for these temp sensors and determine how it names each or addresses each
+  //Look at the setup for these temp sensors and determine how it names each or addresses each
   sensors.begin(); //Ds18b20 initialise
   sensor1.begin(); //DHT Initialise
   sensor2.begin(); //DHT Initialise
 
- Serial.begin(115200); 
- Serial.println("Communication Started \n\n");  
- delay(1000);
+  Serial.begin(115200); 
+  Serial.println("Communication Started \n\n");  
+  delay(1000);
   
- WiFi.mode(WIFI_STA);           
- WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
- Serial.print("Connecting to ");
- Serial.print(WIFI_SSID);
- while (WiFi.status() != WL_CONNECTED)
- { 
-  // Set Startup Screen and WiFi Connecting Info
-  lcd.setCursor(0,1);
-  lcd.print("Craftchill's Medusa");
-  lcd.setCursor(0,2);
-  lcd.print("Connecting...");
-  Serial.print(".");
-  delay(500); 
-}
+  WiFi.mode(WIFI_STA);           
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("Connecting to ");
+  Serial.print(WIFI_SSID);
+  while (WiFi.status() != WL_CONNECTED)
+  { 
+    // Set Startup Screen and WiFi Connecting Info
+    lcd.setCursor(0,1);
+    lcd.print("Craftchill's Medusa");
+    lcd.setCursor(0,2);
+    lcd.print("Connecting...");
+    Serial.print(".");
+    delay(500);
+  }
 
- Serial.println();
- Serial.print("Connected to ");
- Serial.println(WIFI_SSID);
- Serial.print("IP Address is : ");
- Serial.println(WiFi.localIP());    //print local IP address
+  Serial.println();
+  Serial.print("Connected to ");
+  Serial.println(WIFI_SSID);
+  Serial.print("IP Address is : ");
+  Serial.println(WiFi.localIP());    //print local IP address
   lcd.clear();
   lcd.setCursor(0,0);
   lcd.print("Craftchill's Medusa");
@@ -74,7 +77,7 @@ void setup() {
   lcd.setCursor(7,2); // Column, line
   lcd.print(WIFI_SSID);
 
- server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) 
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) 
   {
     request->send(200, "text/plain", "Hi! I am ESP32 Uploaded via OTA.");
   });
@@ -82,9 +85,10 @@ void setup() {
   AsyncElegantOTA.begin(&server);    // Start ElegantOTA
   server.begin();
   Serial.println("HTTP server started");
+  delay(30);
+}
 
- delay(30);
- }
+
 
 void loop() 
 { 
@@ -93,13 +97,16 @@ void loop()
     hasChanged == true;
     WhichScreen++;
     medusaLCD();
+    sendMail();
+    /* Callback function to get the Email sending status */
+    void smtpCallback(SMTP_Status status);
   }
   else 
   {
     hasChanged == false;
   }
 
-  if(millis() - previousHTTPMillis > screenInterval)
+  if(millis() - previousScreenMillis > screenInterval)
   {
     previousScreenMillis = millis();
     medusaLCD(); // Refresh the screen with new data

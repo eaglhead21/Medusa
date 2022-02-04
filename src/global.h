@@ -5,7 +5,7 @@
 
 //WiFI Declarations
 #define HOST "gingerwallop.com"  // Enter HOST URL without "http:// "  and "/" at the end of URL
-#define WIFI_SSID "Redpoint"     // WIFI SSID here                                   
+#define WIFI_SSID "eaglhead"     // WIFI SSID here                                   
 #define WIFI_PASSWORD "ilovefreebeer"  // WIFI password here
 //#define DEBUG ;
 //#define SENSOR ;  
@@ -78,6 +78,19 @@ float hiPressureTempLUT;
 float superheatTemp;
 float subcoolingTemp;
 
+//Setup the email client
+#define SMTP_HOST "smtp.gmail.com"
+#define SMTP_PORT 465
+
+/* The sign in credentials */
+#define AUTHOR_EMAIL "redpoint.medusa@gmail.com"
+#define AUTHOR_PASSWORD "Redpoint"
+
+/* Recipient's email*/
+#define RECIPIENT_EMAIL "redpoint.medusa@gmail.com"
+
+/* The SMTP Session object used for Email sending */
+SMTPSession smtp;
 
 
 
